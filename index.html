@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.min.css" />
+</head>
+
+<body>
+    <div id="parent" class="container">
+        <progress-view inline-template>
+            <div>
+                <h1>Your progress through this course is {{completionRate}}</h1>
+                <p><button @click="completionRate += 10">Update Completion Rate</button></p>
+            </div>
+        </progress-view>
+        <coupon @applied="onCouponApplied"></coupon>
+        <h1 v-if="couponApplied">You used a coupon</h1>
+        <comment-abc3 title="Hello World" body="Lorem ipsum dolor sit amet, consectetur adipiscing elit.">
+        </comment-abc3>
+
+        <input v-model="msg" /><br />
+        {{ msg }}
+        <ul>
+            <li v-for="food in food_items" v-text="food"></li>
+        </ul>
+        <input id="input" type="text">
+        <button id="button">add</button>
+        <button v-on:click="buttonClick">Click Me</button><br />
+        <span v-if="seen">if statement</span>
+        <ul>
+            <li v-for="content in contents">{{ content.text }}</li>
+        </ul>
+        <ol>
+            <todo-item></todo-item>
+            <todo-item></todo-item>
+        </ol>
+        <ol>
+            <todo-new v-for="item in groceryList" v-bind:todo="item" v-bind:key="item.id">
+            </todo-new>
+        </ol>
+        <span v-bind:title="msg1">Hello</span></br>
+        <button v-on:click="reverseMessage">Reverse msg</button></br>
+        <button v-on:[eventname]="reverseMessage">Reverse msg attribute</button></br>
+        <span :class="{red: abc}">object method - Hello Monu</span></br>
+        <span :class="{red: abc, 'span-abc': pqr }">object method - Hello Monu with two classes</span></br>
+        <span :class="classObject">Using classobject instead of inline</span></br>
+        <span :class="method1">Using computed property instead of inline</span></br>
+        <span :class="[abc ? 'red' : '', 'span-abc']">array method - Hello</span></br>
+        <span :class="['red', 'span-abc']">array method - multiple classes without condition</span></br>
+        <span :class="[abc ? 'red' : '']" class='span-abc'>array method - other way of using class</span></br>
+        <button :class="{red: def}" v-on:click="reverseClass(def)">on click can change class</button></br>
+
+        <h1>Bind style</h1>
+        <span v-bind:style="{color: 'orange'}">hi - direct css object syntax</span></br>
+        <span v-bind:style="styleObject">hello - css object</span></br>
+        <span v-bind:style="[styleObject1, styleObject2]">hi - direct css object syntax</span></br>
+        <span v-bind:style="{display: ['-webkit-box', '-ms-flexbox', 'flex']}">only flex will be supported</span>
+        <input v-on:keyup.space="method2">
+        <h1>conditional statements</h1>
+        <span v-if="editSpan">if condition</span>
+        <span v-else>else condition</span></br>
+        <input v-on:keyup.enter="method1"></br>
+        <input @keyup.alt.67="method3"></br>
+        <textarea v-model="message11" placeholder="edit me"></textarea></br>
+        <p>Message is: {{ message11 }}</p>
+        <input type="checkbox" v-model="checked">
+        <p>{{ checked }}</p>
+        <input type="radio" value="2" v-model="picked">
+        <span>{{ picked }}</span></br>
+        <select v-model="selected1">
+            <option disabled value="">Please select one</option>
+            <option>A</option>
+            <option>B</option>
+        </select>
+        <span>selected: {{ selected1 }}</span></br>
+        <button-counter></button-counter>
+        <blog-post title="post 1"></blog-post>
+        <blog-post title="post 2"></blog-post>
+        <blog-post title="post 3"></blog-post>
+
+        <comment-post v-for="item in items4" v-bind:title3="item.text" v-bind:key="item.id"></comment-post>
+
+        <post-class v-for="item in items5" v-bind:key="item.id" v-bind:post="item"></post-class>
+
+        <custom-input v-model="abc21"></custom-input>
+        <button v-for="tab in tabs" v-bind:key="tab" v-bind:class="['tab-button', {active: currentTab === tab}]"
+            v-on:click="currentTab = tab">{{ tab }}</button>
+
+        <component v-bind:is="currentTabComponent" class="tab"></component>
+        <local-component></local-component>
+
+        <comment-abc v-bind:title4="aa1"></comment-abc>
+        <plan v-for="plan in plans" :name="plan"></plan>
+        <router-link to="/foo/aa">aa</router-link>
+        <router-link to="/bar">cc</router-link>
+        <router-link to="/test/23">id_example</router-link>
+        <router-link to="/user-admin">User</router-link>
+        <router-link to="/employee/Monali">employee</router-link>
+        <router-link to="/employee/Monali/profile">profile</router-link>
+        <router-link to="/employee/Monali/post">post</router-link>
+        <router-link :to="{name: 'post', params: { id: 123 }}">comment</router-link>
+        <router-link to="/aa">named views</router-link>
+        <router-link to="/email/settings">settings</router-link>
+        <router-link to="/email/profile">email profile</router-link>
+        <router-link to="/people">people</router-link>
+        <router-link to="/pqr">pqr</router-link>
+        <router-link to="/pqr2">pqr1</router-link>
+        <router-view></router-view>
+        <router-view name="a"></router-view>
+        <router-view name="b"></router-view>
+        <script type="text/x-template" id="plan-template">
+            <div class="plan">
+                <div class="description">
+                    <span class="title">
+                        {{ name }}
+                    </span>
+                </div>
+            </div>
+        </script>
+        <comment-abc1></comment-abc1>
+        <script src="script.js"></script>
+    </div>
+</body>
+
+</html>
